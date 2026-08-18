@@ -11,6 +11,8 @@ An AI-assisted workflow for graded English reading content generation, validatio
 
 当前版本覆盖 第二版Power Up Level 2 全部 9 个 Unit。
 
+![Language Plan](00assets/01首图.png)
+
 ---
 
 ## 1. Overview
