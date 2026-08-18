@@ -1,0 +1,17 @@
+[
+  {
+    "code": "TEXTBOOK_SYNC",
+    "display_name_zh": "教材衔接",
+    "core_positioning": "换情境，练所学"
+  },
+  {
+    "code": "THEME_EXTENSION",
+    "display_name_zh": "主题拓展",
+    "core_positioning": "从主题出发，进一步思考"
+  },
+  {
+    "code": "CROSS_CURRICULAR",
+    "display_name_zh": "跨学科提升",
+    "core_positioning": "借主题认识更大的世界"
+  }
+]

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Power Up 绘编 · 历史绘本库</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="top">
+  <h1>历史绘本库</h1>
+  <nav><a href="/">工作台</a><a href="/library.html">历史绘本库</a><a href="/settings.html">模型配置</a></nav>
+</header>
+<main>
+  <div id="books">加载中…</div>
+  <div id="detail"></div>
+</main>
+<script src="/static/app.js"></script>
+<script>
+async function showDetail(bookId) {
+  const book = await fetchJSON(`/api/book?id=${encodeURIComponent(bookId)}`);
+  const snapshot = book.snapshot || {};
+  document.getElementById("detail").innerHTML = `<h2>绘本详情</h2><div class="card">
+    <strong>${esc(book.title)}</strong>
+    <span class="badge ${book.is_current ? "green" : "gray"}">
+      ${book.is_current ? "当前有效" : "已撤销"}</span>
+    <div class="muted">定稿时间：${esc(book.finalized_at)} · ${snapshot.total_word_count || "—"} 词</div>
+    <h3>正文</h3>
+    ${(snapshot.pages || []).map(page =>
+      `<div class="muted">${page.page_number}. ${esc(page.text)}</div>`).join("")}
+    <h3>教学词</h3>
+    ${(snapshot.teaching_vocabulary || []).map(item =>
+      `<span class="badge green">${ROLE_LABELS[item.role]} · ${esc(item.raw_form)} ×${item.token_count}</span>`)
+      .join(" ") || '<span class="muted">无</span>'}
+    <h3>核心句型</h3>
+    ${(snapshot.planned_patterns || []).map(pattern =>
+      `<span class="badge blue">${esc(pattern)}</span>`).join(" ") || '<span class="muted">无</span>'}
+    ${book.is_current ? `<div style="margin-top:10px">
+      <button class="secondary" data-book="${esc(book.book_id)}"
+        onclick="unfinalizeBook(this)">撤销定稿</button>
+      <span class="muted">撤销后本书退出正式统计，其复现记录同时失效；项目回到工作稿阶段。</span></div>` : ""}
+  </div>`;
+}
+
+async function unfinalizeBook(button) {
+  if (!confirm("确定撤销这本书的定稿吗？它将退出正式统计，复现记录同时失效。")) return;
+  if (!confirm("再次确认：撤销定稿会影响后续绘本的复现候选，确定继续？")) return;
+  try {
+    await withBusy(button, "撤销中…", () => postJSON("/api/final/unfinalize",
+      { book_id: button.dataset.book }));
+    toast("已撤销定稿");
+    location.reload();
+  } catch (error) { toast(error.message); }
+}
+
+(async () => {
+  const data = await fetchJSON("/api/library");
+  const container = document.getElementById("books");
+  if (!data.books.length) {
+    container.innerHTML = `<div class="card muted">还没有定稿的绘本。完成一本绘本的定稿后，它会出现在这里，
+      其核心词会成为后续绘本的复现候选。</div>`;
+    return;
+  }
+  container.innerHTML = `<div class="grid cols-2">` + data.books.map(book => `
+    <div class="card">
+      <strong>${esc(book.title)}</strong>
+      <span class="badge ${book.is_current ? "green" : "gray"}">
+        ${book.is_current ? "当前有效" : "已撤销"}</span>
+      <span class="badge gray">${BOOK_TYPE_LABELS[book.book_type_code] || esc(book.book_type_code)}</span>
+      <div class="muted">${esc(book.theme)} · 定稿于 ${esc(book.finalized_at.slice(0, 10))}</div>
+      <div>${book.vocabulary.map(item =>
+        `<span class="badge ${item.role === "CORE" ? "green" : "blue"}">
+          ${ROLE_LABELS[item.role]} ${esc(item.raw_form)}</span>`).join(" ")}</div>
+      <button class="small secondary" onclick="showDetail('${esc(book.book_id)}')">查看详情</button>
+    </div>`).join("") + `</div>`;
+})().catch(error => toast(error.message));
+</script>
+</body>
+</html>

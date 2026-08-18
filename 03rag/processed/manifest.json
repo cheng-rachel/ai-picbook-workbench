@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "built_at": "2026-08-18T19:15:49.914115+00:00",
+  "source_hashes": {
+    "01绘本编写理念.docx": "5deb5684407aa874d9325769ed7e4077e08512300a7843c9ea88e14b838ad9ed",
+    "02分级标准.docx": "9ee285d38819482d66b96e9e809fc235f310579c2c8aac8aba8cae7ecabb9749",
+    "03语言项目收录标准.docx": "65aa394d80cf019ee588c1012a9f1faa39619a0959c4ac30e5c2081a2be56db0"
+  },
+  "chunk_count": 43,
+  "processed_file": "teaching_guidance.jsonl"
+}

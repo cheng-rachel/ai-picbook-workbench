@@ -1,0 +1,152 @@
+{
+  "level": {
+    "level_id": 2,
+    "level_name": "Level 2",
+    "stage_positioning": "情境阅读 · 语言运用",
+    "active_in_demo": true
+  },
+  "rules": [
+    {
+      "level_rule_id": "L2-book_word_count",
+      "level_id": 2,
+      "rule_key": "book_word_count",
+      "raw_value": "120–200 词，平均约 150 词",
+      "effective_value": {
+        "min": 120,
+        "max": 200
+      },
+      "value_type": "range",
+      "rule_strength": "target",
+      "source_document_id": "levels",
+      "source_section": "每册阅读量",
+      "note": null
+    },
+    {
+      "level_rule_id": "L2-page_count_allowed",
+      "level_id": 2,
+      "rule_key": "page_count_allowed",
+      "raw_value": "Product Decision",
+      "effective_value": [
+        8,
+        12
+      ],
+      "value_type": "json",
+      "rule_strength": "hard",
+      "source_document_id": "product",
+      "source_section": "01_product_workflow Stage 15.1",
+      "note": null
+    },
+    {
+      "level_rule_id": "L2-sentences_per_page",
+      "level_id": 2,
+      "rule_key": "sentences_per_page",
+      "raw_value": "Product Decision（01docs 未另行规定）",
+      "effective_value": {
+        "min": 2,
+        "max": 3
+      },
+      "value_type": "range",
+      "rule_strength": "target",
+      "source_document_id": "product",
+      "source_section": "01_product_workflow Stage 15.3",
+      "note": null
+    },
+    {
+      "level_rule_id": "L2-sentence_max_words",
+      "level_id": 2,
+      "rule_key": "sentence_max_words",
+      "raw_value": "Product Decision（01docs 未另行规定）",
+      "effective_value": 10,
+      "value_type": "int",
+      "rule_strength": "target",
+      "source_document_id": "product",
+      "source_section": "01_product_workflow Stage 15.4",
+      "note": null
+    },
+    {
+      "level_rule_id": "L2-core_pattern_count",
+      "level_id": 2,
+      "rule_key": "core_pattern_count",
+      "raw_value": "约 2 个",
+      "effective_value": {
+        "min": 1,
+        "max": 2
+      },
+      "value_type": "range",
+      "rule_strength": "target",
+      "source_document_id": "language",
+      "source_section": "每册语句数据",
+      "note": null
+    },
+    {
+      "level_rule_id": "L2-core_pattern_repeat",
+      "level_id": 2,
+      "rule_key": "core_pattern_repeat",
+      "raw_value": "每个核心句型自然复现 3–5 次",
+      "effective_value": {
+        "min": 3,
+        "max": 5
+      },
+      "value_type": "range",
+      "rule_strength": "target",
+      "source_document_id": "language",
+      "source_section": "每册语句数据",
+      "note": null
+    },
+    {
+      "level_rule_id": "L2-core_word_frequency",
+      "level_id": 2,
+      "rule_key": "core_word_frequency",
+      "raw_value": "3–5次",
+      "effective_value": {
+        "min": 3,
+        "max": 5
+      },
+      "value_type": "range",
+      "rule_strength": "target",
+      "source_document_id": "language",
+      "source_section": "分级词汇与篇幅标准",
+      "note": null
+    },
+    {
+      "level_rule_id": "L2-review_words_per_book",
+      "level_id": 2,
+      "rule_key": "review_words_per_book",
+      "raw_value": "复现池≥5时建议5–6个（Product Decision）",
+      "effective_value": {
+        "min": 5,
+        "max": 6
+      },
+      "value_type": "range",
+      "rule_strength": "target",
+      "source_document_id": "product",
+      "source_section": "01_product_workflow Stage 14.2",
+      "note": null
+    },
+    {
+      "level_rule_id": "L2-cross_book_recurrence",
+      "level_id": 2,
+      "rule_key": "cross_book_recurrence",
+      "raw_value": "≥3册",
+      "effective_value": {
+        "min": 3,
+        "max": 5
+      },
+      "value_type": "range",
+      "rule_strength": "target",
+      "source_document_id": "language",
+      "source_section": "分级词汇与篇幅标准",
+      "note": null
+    }
+  ],
+  "descriptions": {
+    "核心阅读目标": "情境阅读 · 语言运用：借助图片和上下文理解简短故事；获取人物、时间、地点、活动等基本信息；在不同故事情境中理解并复现教材核心词汇和句型，并尝试使用所学语言描述自己的生活与经历。",
+    "主题梯度": "以儿童熟悉的日常生活与社会交往为主，如家庭生活、学校生活、日常作息、兴趣爱好、游戏、朋友、健康习惯及简单规则等；适当融入合作、分享、尝试、责任等与儿童生活密切相关的成长主题。",
+    "文化意识": "文化发现：在熟悉的儿童生活主题中发现不同国家和地区在日常活动、饮食、游戏、学校生活和节庆方式等方面的简单异同，理解“相同的生活主题可以有不同的表现方式”。",
+    "每册阅读量": "120–200 词，平均约 150 词",
+    "句式难度": "以基本简单句为主，句子结构清晰；可通过替换主语、动词、宾语、地点和时间等成分形成变化，核心句型保持较高复现率。",
+    "篇章类型": "在生活故事和童话基础上，增加简单的描述、介绍和概念说明类文本",
+    "情节特征": "具有简单、连续的故事情节，事件关系清晰、较容易预测；可通过重复结构帮助理解故事发展",
+    "写作手法": "以叙事和描述为主，按照时间、空间或事件发展顺序组织信息；可使用简单重复、列举等方式"
+  }
+}

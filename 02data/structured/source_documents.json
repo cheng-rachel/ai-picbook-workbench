@@ -1,0 +1,38 @@
+[
+  {
+    "source_document_id": "design",
+    "source_name": "01绘本编写理念",
+    "source_path": "01docs/01绘本编写理念.docx",
+    "source_type": "docx",
+    "source_hash": "5deb5684407aa874d9325769ed7e4077e08512300a7843c9ea88e14b838ad9ed",
+    "parsed_at": "2026-08-18T19:15:38.501504+00:00",
+    "active": true
+  },
+  {
+    "source_document_id": "levels",
+    "source_name": "02分级标准",
+    "source_path": "01docs/02分级标准.docx",
+    "source_type": "docx",
+    "source_hash": "9ee285d38819482d66b96e9e809fc235f310579c2c8aac8aba8cae7ecabb9749",
+    "parsed_at": "2026-08-18T19:15:38.502068+00:00",
+    "active": true
+  },
+  {
+    "source_document_id": "language",
+    "source_name": "03语言项目收录标准",
+    "source_path": "01docs/03语言项目收录标准.docx",
+    "source_type": "docx",
+    "source_hash": "65aa394d80cf019ee588c1012a9f1faa39619a0959c4ac30e5c2081a2be56db0",
+    "parsed_at": "2026-08-18T19:15:38.502303+00:00",
+    "active": true
+  },
+  {
+    "source_document_id": "topics",
+    "source_name": "04Level2教材依据",
+    "source_path": "01docs/04Level2教材依据.docx",
+    "source_type": "docx",
+    "source_hash": "ecca7670bd7030069117d5609ee5b7d78b46e97b385ea804c2eeb1573d90d204",
+    "parsed_at": "2026-08-18T19:15:38.502539+00:00",
+    "active": true
+  }
+]

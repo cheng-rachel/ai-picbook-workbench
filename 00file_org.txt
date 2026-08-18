@@ -1,0 +1,34 @@
+power-up-picture-book-forge/
+│
+├── 00agents.md
+├── 00readme.md
+│
+├── 01docs/
+│   ├── 01绘本编写理念.docx
+│   ├── 02分级标准.docx
+│   ├── 03语言项目收录标准.docx
+│   ├── 04Level2教材依据.docx
+│   │
+│   └── 05product/
+│       ├── 01_product_workflow_v2.md
+│       ├── 02_data_mapping_v2.md
+│       ├── 03_data_dictionary_v2.md
+│       ├── 04_validation_rules_v2.md
+│       ├── 05_generation_rules_v2.md
+│       └── 06_rag_mapping_v2.md
+│
+├── 02data/
+│   ├── structured/
+│   └── historical_books/
+│
+├── 03rag/
+│   ├── processed/
+│   └── index/
+│
+├── 04scripts/
+│
+├── 05app/
+│
+├── 06tests/
+│
+└── 07exports/

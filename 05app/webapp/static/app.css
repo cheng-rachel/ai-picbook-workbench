@@ -1,0 +1,74 @@
+:root {
+  --ink: #23303d; --muted: #6b7a89; --line: #d9e1e8; --bg: #f4f7f9;
+  --card: #ffffff; --accent: #2c6e8f; --green: #2e7d4f; --amber: #b26a00;
+  --red: #b3372f; --gray: #8a949e;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+  font: 15px/1.6 "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; }
+header.top { background: var(--card); border-bottom: 1px solid var(--line);
+  padding: 12px 24px; display: flex; align-items: baseline; gap: 18px; }
+header.top h1 { font-size: 17px; margin: 0; }
+header.top nav a { margin-right: 14px; color: var(--accent); text-decoration: none; }
+main { max-width: 1180px; margin: 0 auto; padding: 20px 24px 60px; }
+h2 { font-size: 16px; margin: 26px 0 10px; }
+h3 { font-size: 14px; margin: 14px 0 8px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+  padding: 14px 16px; margin-bottom: 12px; }
+.grid { display: grid; gap: 12px; }
+.grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.muted { color: var(--muted); font-size: 13px; }
+.badge { display: inline-block; border-radius: 10px; padding: 0 8px; font-size: 12px;
+  border: 1px solid var(--line); background: #eef2f5; color: var(--muted); margin-left: 6px; }
+.badge.green { background: #e7f3ec; color: var(--green); border-color: #bfe0cd; }
+.badge.amber { background: #fdf3e3; color: var(--amber); border-color: #efd9b0; }
+.badge.red { background: #fbe9e7; color: var(--red); border-color: #efc4bf; }
+.badge.gray { background: #f0f2f4; color: var(--gray); }
+.badge.blue { background: #e8f1f6; color: var(--accent); border-color: #c3d9e5; }
+button { font: inherit; padding: 6px 14px; border-radius: 6px; border: 1px solid var(--accent);
+  background: var(--accent); color: #fff; cursor: pointer; }
+button.secondary { background: #fff; color: var(--accent); }
+button.small { padding: 2px 10px; font-size: 13px; }
+button:disabled, button.pending { background: #e4e9ed; border-color: var(--line);
+  color: var(--muted); cursor: not-allowed; }
+textarea, input, select { font: inherit; border: 1px solid var(--line); border-radius: 6px;
+  padding: 6px 8px; width: 100%; }
+textarea[readonly] { background: #fafbfc; color: var(--ink); }
+.stagebar { display: flex; gap: 6px; margin: 14px 0 20px; flex-wrap: wrap; }
+.stagebar .step { padding: 6px 14px; border-radius: 16px; border: 1px solid var(--line);
+  background: var(--card); color: var(--muted); font-size: 13px; }
+.stagebar .step.done { background: #e7f3ec; color: var(--green); border-color: #bfe0cd; }
+.stagebar .step.now { background: var(--accent); color: #fff; border-color: var(--accent); }
+.issue { border-left: 4px solid var(--line); padding: 6px 10px; margin-bottom: 8px;
+  background: #fafbfc; border-radius: 0 6px 6px 0; }
+.issue.BLOCKER { border-left-color: var(--red); }
+.issue.WARNING { border-left-color: var(--amber); }
+.issue.INFO { border-left-color: var(--accent); }
+.vocab-row { display: flex; align-items: baseline; gap: 8px; padding: 3px 0; }
+.vocab-row.known { color: var(--gray); }
+.vocab-row.review { color: var(--red); }
+.pagebox { margin-bottom: 10px; }
+.pagebox label { font-size: 13px; color: var(--muted); }
+.split { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; align-items: start; }
+.banner { padding: 10px 14px; border-radius: 6px; margin-bottom: 12px; }
+.banner.blocked { background: #fbe9e7; color: var(--red); }
+.banner.warning { background: #fdf3e3; color: var(--amber); }
+.banner.pass { background: #e7f3ec; color: var(--green); }
+ul.checklist { list-style: none; padding: 0; margin: 0; }
+ul.checklist li { padding: 4px 0; }
+a.cardlink { text-decoration: none; color: inherit; display: block; }
+a.cardlink:hover { border-color: var(--accent); }
+.chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line);
+  border-radius: 14px; padding: 2px 10px; margin: 2px 6px 2px 0; background: #fafbfc;
+  font-size: 14px; color: var(--ink); }
+button.chip.pick { background: #fff; cursor: pointer; }
+button.chip.pick:hover { border-color: var(--accent); color: var(--accent); }
+.chip-x { background: none; border: none; color: var(--muted); padding: 0 2px;
+  cursor: pointer; font-size: 14px; line-height: 1; }
+.chip-x:hover { color: var(--red); }
+.addrow { margin-top: 6px; }
+.addrow input { max-width: 260px; }
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 6px;
+  font-size: 14px; opacity: 0.95; z-index: 10; }

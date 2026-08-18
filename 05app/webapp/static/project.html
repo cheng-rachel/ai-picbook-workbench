@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Power Up 绘编 · 绘本项目</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="top">
+  <h1 id="title">绘本项目</h1>
+  <nav><a href="/">工作台</a><a id="topic-link" href="/">返回 Unit</a>
+    <a href="/library.html">历史绘本库</a><a href="/settings.html">模型配置</a></nav>
+</header>
+<main id="main">加载中…</main>
+<script src="/static/app.js"></script>
+<script>
+/* ---- ② 词表计划：创建 / 调整 / 确认 ---- */
+/* planEdit 保存教师本地未提交的词表调整；保存或确认时整体提交给
+   prepare_generation_plan（后端会生成新的计划版本并重新查词）。 */
+let planEdit = null;
+
+function ensurePlanEdit(plan) {
+  if (planEdit) return;
+  const byRole = role => plan.vocabulary
+    .filter(item => item.role === role).map(item => item.raw_form);
+  planEdit = {
+    CORE: byRole("CORE"), EXTENSION: byRole("EXTENSION"), REVIEW: byRole("REVIEW"),
+    patterns: plan.patterns.map(item => item.raw_pattern),
+    settings: { page_count: plan.page_count, orientation: plan.generation_orientation,
+                instruction: plan.teacher_instruction || "" },
+  };
+}
+
+function captureSettings() {
+  const pages = document.getElementById("plan-pages");
+  if (!pages || !planEdit) return;
+  planEdit.settings = {
+    page_count: parseInt(pages.value, 10),
+    orientation: document.getElementById("plan-orientation").value,
+    instruction: document.getElementById("plan-instruction").value,
+  };
+}
+
+function planSettingsRow(settings) {
+  return `<div class="grid cols-2">
+      <label>页数 <select id="plan-pages">
+        <option value="8"${settings.page_count === 8 ? " selected" : ""}>8 页</option>
+        <option value="12"${settings.page_count === 12 ? " selected" : ""}>12 页</option></select></label>
+      <label>生成倾向 <select id="plan-orientation">${["BALANCED", "STORY", "LANGUAGE"].map(key =>
+        `<option value="${key}"${key === settings.orientation ? " selected" : ""}>${ORIENTATION_LABELS[key]}</option>`).join("")}</select></label>
+    </div>
+    <label>给 AI 的补充要求（可选）<textarea id="plan-instruction" rows="2"
+      placeholder="例如：句子短一些，多用对话。">${esc(settings.instruction)}</textarea></label>`;
+}
+
+function editChips(key, label, lookup) {
+  const chips = planEdit[key].map((value, index) => `<span class="chip">${esc(value)}
+      ${lookup[value] || '<span class="badge gray">待保存</span>'}
+      <button class="chip-x" title="移除" onclick="removePlanItem('${key}', ${index})">×</button></span>`)
+    .join("") || '<span class="muted">无</span>';
+  return `<h3>${label}（${planEdit[key].length}）</h3><div>${chips}</div>
+    <div class="addrow"><input placeholder="输入后回车添加"
+      onkeydown="if (event.key === 'Enter') addPlanItem('${key}', this)"></div>`;
+}
+
+function planSection(plan, stage) {
+  if (!plan) {
+    const proposal = DATA.proposal || {};
+    const predicted = [...(proposal.predicted_core_words || []),
+                       ...(proposal.predicted_core_patterns || [])];
+    const manualHint = proposal.source !== "MANUAL" ? "" : (predicted.length ?
+      `<div class="muted">方案当前的预测语言：${predicted.map(esc).join("、")}
+         <button class="small secondary" onclick="recommendLanguage(this)">重新 AI 推荐</button></div>` :
+      `<div class="muted">这是你手写的故事方案，还没有预测词。
+         <button class="small" onclick="recommendLanguage(this)">🤖 AI 推荐核心词与句型</button>
+         推荐完成后会直接生成建议词表供你调整；也可以直接创建词表计划后手动添加。</div>`);
+    return `<h2>② 词表计划</h2><div class="card">
+      <div class="muted">创建后会先从入选方案的预测词汇生成建议清单，供你调整确认；确认前不会生成正文。</div>
+      ${manualHint}
+      ${planSettingsRow({ page_count: 8, orientation: "BALANCED", instruction: "" })}
+      <button onclick="createPlan(this)">创建词表计划</button></div>`;
+  }
+  if (plan.status !== "READY") {
+    ensurePlanEdit(plan);
+    const vocabLookup = {}, patternLookup = {};
+    plan.vocabulary.forEach(item => {
+      vocabLookup[item.raw_form] = sourceBadge(item.source_lookup_status); });
+    plan.patterns.forEach(item => {
+      patternLookup[item.raw_pattern] = sourceBadge(item.source_relation); });
+    const pool = plan.review_candidates || {};
+    const poolBlock = pool.pool_size ? `<h3>历史复现候选（点击加入复现词）</h3>
+      <div>${pool.candidates.map(item => `<button class="chip pick" data-word="${esc(item.lemma)}"
+        onclick="addReviewWord(this)">＋ ${esc(item.lemma)}
+        <span class="muted">已复现 ${item.current_book_recurrence_count}/${item.target_min}</span></button>`).join("")}</div>` :
+      `<h3>历史复现候选</h3><div class="muted">暂无历史 Final 绘本，本书没有复现要求。</div>`;
+    return `<h2>② 词表计划 <span class="badge amber">待确认</span></h2>
+      <div class="card">
+        ${planSettingsRow(planEdit.settings)}
+        ${editChips("CORE", "核心词", vocabLookup)}
+        ${editChips("EXTENSION", "拓展词", vocabLookup)}
+        ${editChips("REVIEW", "复现词", vocabLookup)}
+        ${editChips("patterns", "核心句型", patternLookup)}
+        ${poolBlock}
+        <div style="margin-top:12px">
+          <button class="secondary" onclick="savePlan(this)">保存调整</button>
+          <button onclick="confirmPlanNow(this)">确认词表</button>
+        </div>
+        <div class="muted">保存调整会重新标注词的来源（本单元教材 / 教材其他单元 / 未收录）；确认词表后才能生成正文。</div>
+      </div>`;
+  }
+  const byRole = role => plan.vocabulary.filter(item => item.role === role);
+  const roleBlock = role => `<h3>${ROLE_LABELS[role]}（${byRole(role).length}）</h3>
+    <div>${byRole(role).map(item => `<span class="vocab-row" style="display:inline-flex">
+      ${esc(item.raw_form)} ${sourceBadge(item.source_lookup_status)}</span>`).join("　") || '<span class="muted">无</span>'}</div>`;
+  return `<h2>② 词表计划 <span class="badge green">已确认</span></h2>
+    <div class="card">
+      <div class="muted">页数 ${plan.page_count} · 生成倾向 ${ORIENTATION_LABELS[plan.generation_orientation]}
+        ${plan.teacher_instruction ? " · 补充要求：" + esc(plan.teacher_instruction) : ""}</div>
+      ${roleBlock("CORE")}${roleBlock("EXTENSION")}${roleBlock("REVIEW")}
+      <h3>核心句型（${plan.patterns.length}）</h3>
+      <div>${plan.patterns.map(pattern => `${esc(pattern.raw_pattern)}
+        ${sourceBadge(pattern.source_relation)}`).join("　") || '<span class="muted">无</span>'}</div>
+      ${stage === "PLAN_READY" ? `<div style="margin-top:10px">
+        <button class="secondary" onclick="reopenPlan(this)">重新调整词表</button></div>` : ""}
+    </div>`;
+}
+
+function collectPlanBody() {
+  captureSettings();
+  return {
+    project_id: DATA.project.project_id,
+    page_count: planEdit.settings.page_count,
+    generation_orientation: planEdit.settings.orientation,
+    teacher_instruction: planEdit.settings.instruction.trim(),
+    planned_core_words: planEdit.CORE,
+    planned_extension_words: planEdit.EXTENSION,
+    planned_review_words: planEdit.REVIEW,
+    planned_core_patterns: planEdit.patterns,
+  };
+}
+
+function removePlanItem(key, index) {
+  captureSettings();
+  planEdit[key].splice(index, 1);
+  render();
+}
+
+function addPlanItem(key, input) {
+  const value = input.value.trim();
+  if (!value) return;
+  captureSettings();
+  if (!planEdit[key].includes(value)) planEdit[key].push(value);
+  render();
+}
+
+function addReviewWord(button) {
+  const word = button.dataset.word;
+  captureSettings();
+  if (!planEdit.REVIEW.includes(word)) planEdit.REVIEW.push(word);
+  render();
+}
+
+/* AI 语言推荐：更新方案上的预测建议值后立即生成建议词表（DRAFT Plan），
+   推荐结果直接显示为可编辑词表；故事本身与已建项目不受影响。 */
+async function recommendLanguage(button) {
+  try {
+    await withBusy(button, "AI 推荐中…（约 1 分钟）", async () => {
+      await postJSON("/api/proposals/recommend-language",
+        { proposal_id: DATA.proposal.proposal_id });
+      await postJSON("/api/plan/prepare", {
+        project_id: DATA.project.project_id,
+        page_count: parseInt(document.getElementById("plan-pages").value, 10),
+        generation_orientation: document.getElementById("plan-orientation").value,
+        teacher_instruction: document.getElementById("plan-instruction").value.trim(),
+      });
+    });
+    planEdit = null;
+    toast("AI 推荐完成，已生成建议词表，请调整后确认");
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+async function createPlan(button) {
+  try {
+    await withBusy(button, "创建中…", () => postJSON("/api/plan/prepare", {
+      project_id: DATA.project.project_id,
+      page_count: parseInt(document.getElementById("plan-pages").value, 10),
+      generation_orientation: document.getElementById("plan-orientation").value,
+      teacher_instruction: document.getElementById("plan-instruction").value.trim(),
+    }));
+    toast("已生成建议词表，请调整后确认");
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+async function savePlan(button) {
+  try {
+    await withBusy(button, "保存中…", () => postJSON("/api/plan/prepare", collectPlanBody()));
+    toast("已保存调整");
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+async function confirmPlanNow(button) {
+  try {
+    await withBusy(button, "确认中…", async () => {
+      const plan = await postJSON("/api/plan/prepare", collectPlanBody());
+      await postJSON("/api/plan/confirm", { plan_id: plan.plan_id });
+    });
+    toast("词表已确认，可以生成候选正文了");
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+async function reopenPlan(button) {
+  const plan = DATA.plan;
+  const words = role => plan.vocabulary
+    .filter(item => item.role === role).map(item => item.raw_form);
+  try {
+    await withBusy(button, "处理中…", () => postJSON("/api/plan/prepare", {
+      project_id: DATA.project.project_id,
+      page_count: plan.page_count,
+      generation_orientation: plan.generation_orientation,
+      teacher_instruction: plan.teacher_instruction || "",
+      planned_core_words: words("CORE"),
+      planned_extension_words: words("EXTENSION"),
+      planned_review_words: words("REVIEW"),
+      planned_core_patterns: plan.patterns.map(item => item.raw_pattern),
+    }));
+    toast("词表已退回待确认，可继续调整");
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+/* ---- ③ 候选正文：生成 / 选为工作稿 ---- */
+function candidateSection(candidates, stage) {
+  if (!["PLAN_READY", "CANDIDATES", "DRAFT", "FINAL"].includes(stage)) return "";
+  let controls = "";
+  if (stage === "PLAN_READY" || stage === "CANDIDATES") {
+    controls = `<div class="card">
+      <label style="display:inline-block;width:auto">候选数量
+        <select id="cand-count" style="width:auto"><option>2</option><option selected>3</option></select></label>
+      <button onclick="generateCandidates(this)">${stage === "CANDIDATES" ?
+        "重新生成候选（替换当前候选）" : "生成候选正文"}</button>
+      <span class="muted">真实生成约 2–5 分钟，期间请不要关闭页面。</span></div>`;
+  }
+  const cards = candidates.length ? `<div class="grid cols-3">` + candidates.map(candidate => `
+    <div class="card">
+      <strong>候选 ${candidate.candidate_index} · ${esc(candidate.title)}</strong>
+      ${candidate.status === "SELECTED" ? `<span class="badge green">已选为工作稿</span>` : ""}
+      <div class="muted">${candidate.page_count} 页 · ${candidate.total_word_count} 词 ·
+        提醒 ${candidate.validation_summary.WARNING || 0} 条</div>
+      <div style="max-height:220px;overflow:auto;margin:6px 0">${candidate.pages.map(page =>
+        `<div class="muted">${page.page_number}. ${esc(page.text)}</div>`).join("")}</div>
+      ${stage === "CANDIDATES" ?
+        `<button class="small" onclick="selectCandidate('${candidate.candidate_id}', this)">选为工作稿</button>` : ""}
+    </div>`).join("") + `</div>` : "";
+  return `<h2>③ 候选正文</h2>${controls}${cards ||
+    (stage === "PLAN_READY" ? "" : `<div class="card muted">暂无候选。</div>`)}`;
+}
+
+async function generateCandidates(button) {
+  try {
+    await withBusy(button, "生成中…（约 2–5 分钟）", () => postJSON("/api/candidates/generate", {
+      plan_id: DATA.plan.plan_id,
+      candidate_count: parseInt(document.getElementById("cand-count").value, 10),
+    }));
+    toast("候选正文已生成，请对比选择");
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+async function selectCandidate(candidateId, button) {
+  try {
+    await withBusy(button, "处理中…", () => postJSON("/api/candidate/select",
+      { candidate_id: candidateId }));
+    toast("已选为工作稿");
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+function vocabPanel(draft, editable) {
+  const observations = (draft.validation || {}).vocabulary_observations || [];
+  const planned = observations.filter(item => item.classification_state === "PLANNED");
+  const review = observations.filter(item => item.classification_state === "NEEDS_REVIEW");
+  const known = observations.filter(item => item.classification_state === "KNOWN_UNPLANNED");
+  const confirmed = review.filter(item => item.teacher_confirmed);
+  const pending = review.filter(item => !item.teacher_confirmed);
+  const pendingRow = item => `<div class="vocab-row review">${esc(item.raw_form)}
+    <span class="muted">×${item.token_count} · Power Up 2 教材未收录</span>
+    ${editable ? `
+      <button class="small" data-word="${esc(item.normalized_form)}"
+        onclick="markNonTeaching(this)">非教学词</button>
+      <select class="small" style="width:auto">
+        <option value="EXTENSION">作为拓展词</option>
+        <option value="CORE">作为核心词</option>
+        <option value="REVIEW">作为复习词</option>
+      </select>
+      <button class="small secondary" data-word="${esc(item.normalized_form)}"
+        onclick="promoteWord(this)">值得教，加入词表</button>` : ""}
+  </div>`;
+  return `<h3>本书词汇</h3>
+    <div class="muted">本书教学词（${planned.length}）</div>
+    ${planned.map(item => `<div class="vocab-row"><span class="badge green">
+      ${ROLE_LABELS[item.planned_role] || esc(item.planned_role)}</span>
+      ${esc(item.raw_form)} <span class="muted">×${item.token_count}</span>
+      ${sourceBadge(item.source_lookup_status)}</div>`).join("")}
+    <div class="muted" style="margin-top:8px">需要老师确认（${pending.length}）</div>
+    ${pending.map(pendingRow).join("") ||
+      '<div class="muted">没有待确认的词。</div>'}
+    ${pending.length && editable ? `<div class="muted">
+      “非教学词”＝这个词只是故事需要，本书不教；“加入词表”＝按所选角色（核心/拓展/复习）教，
+      可连续加入多个词，最后回到 ② 词表计划一并确认。</div>` : ""}
+    ${confirmed.map(item => `<div class="vocab-row known">${esc(item.raw_form)}
+      <span class="badge gray">已确认：非教学词</span></div>`).join("")}
+    <div class="muted" style="margin-top:8px">教材范围内已学，本书不教（${known.length}）</div>
+    ${known.map(item => `<div class="vocab-row known">${esc(item.raw_form)}
+      <span class="muted">×${item.token_count}</span>
+      ${sourceBadge(item.source_lookup_status)}</div>`).join("")}`;
+}
+
+/* 词表确认快照必须包含全部 NEEDS_REVIEW 词；已确认状态由后端返回并在刷新后保留。 */
+function buildVocabularySnapshot(extraConfirmedWord) {
+  const entries = (DATA.draft.validation || {}).vocabulary_observations
+    .filter(item => item.classification_state === "NEEDS_REVIEW")
+    .map(item => ({
+      raw_form: item.raw_form, normalized_form: item.normalized_form, lemma: item.lemma,
+      source_status: item.source_lookup_status,
+      classification_state: item.classification_state,
+      confirmed_role: "NON_TEACHING_CONTEXT",
+      teacher_confirmed: Boolean(item.teacher_confirmed) ||
+        item.normalized_form === extraConfirmedWord,
+    }));
+  return { entries };
+}
+
+async function markNonTeaching(button) {
+  try {
+    await withBusy(button, "确认中…", () => postJSON("/api/vocabulary/confirm", {
+      draft_id: DATA.draft.draft_id,
+      snapshot: buildVocabularySnapshot(button.dataset.word),
+    }));
+    toast("已确认为非教学词");
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+async function promoteWord(button) {
+  const picker = button.previousElementSibling;
+  const role = picker && picker.tagName === "SELECT" ? picker.value : "EXTENSION";
+  const roleLabel = { CORE: "核心词", EXTENSION: "拓展词", REVIEW: "复习词" }[role];
+  try {
+    await withBusy(button, "处理中…", () => postJSON("/api/plan/revise", {
+      draft_id: DATA.draft.draft_id,
+      selections: [{ normalized_form: button.dataset.word, role }],
+    }));
+    toast(`已作为${roleLabel}加入词表草稿。可继续处理其他词，最后到 ② 词表计划一并确认`);
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+function issueRow(issue, editable) {
+  const ackable = editable && issue.severity === "WARNING" &&
+    issue.resolution_status === "OPEN";
+  return `<div class="issue ${issue.severity}">
+      <span class="badge ${issue.severity === "BLOCKER" ? "red" :
+        issue.severity === "WARNING" ? "amber" : "blue"}">${severityLabel(issue.severity)}</span>
+      ${issueText(issue)}
+      ${issue.resolution_status === "ACKNOWLEDGED" ? `<span class="badge gray">已知悉</span>` :
+        issue.resolution_status === "RESOLVED" ? `<span class="badge green">已解决</span>` :
+        ackable ? `<button class="small secondary" data-issue="${esc(issue.issue_id)}"
+          onclick="acknowledgeIssue(this)">已知悉</button>` : ""}
+      <div class="muted">${esc(issue.message)}</div>
+    </div>`;
+}
+
+function rewritePanel(editable) {
+  if (!editable) return "";
+  const preview = DATA.rewrite_preview;
+  if (preview) {
+    const summary = preview.validation_summary || {};
+    let body = "";
+    if (preview.scope === "PAGE") {
+      const current = DATA.draft.pages.find(
+        page => page.page_number === preview.target_page_number) || {};
+      body = `<div class="muted">第 ${preview.target_page_number} 页 · 原文：</div>
+        <div class="muted">${esc(current.text || "")}</div>
+        <div class="muted" style="margin-top:6px">重写为：</div>
+        <div>${esc(preview.output.text)}</div>`;
+    } else {
+      body = (preview.output.pages || []).map(page =>
+        `<div>${page.page_number}. ${esc(page.text)}</div>`).join("");
+      if (preview.output.title) {
+        body = `<div><strong>新标题：${esc(preview.output.title)}</strong></div>` + body;
+      }
+    }
+    return `<h3>AI 重写预览（待决定）</h3>
+      <div class="card">
+        <div class="muted">修改要求：${esc(preview.teacher_instruction)}</div>
+        <div style="max-height:220px;overflow:auto;margin:6px 0">${body}</div>
+        <div class="muted">接受后的校验：${preview.overall_status === "BLOCKED" ?
+          "有必须处理的问题" : preview.overall_status === "WARNING" ? "有提醒" : "通过"}
+          · 必须处理 ${summary.BLOCKER || 0} · 提醒 ${summary.WARNING || 0}</div>
+        <button onclick="acceptRewrite(this)">接受重写（覆盖当前正文）</button>
+        <button class="secondary" onclick="cancelRewrite(this)">放弃这次预览</button>
+      </div>`;
+  }
+  return `<h3>AI 重写</h3>
+    <div class="grid cols-2">
+      <label>范围 <select id="rewrite-scope"><option value="FULL">整篇</option>
+        <option value="PAGE">单页</option></select></label>
+      <label>页码（单页时）<input id="rewrite-page" type="number" min="1" max="12" value="1"></label>
+    </div>
+    <label>修改要求 <textarea id="rewrite-instruction" rows="2"
+      placeholder="例如：结尾更温和一些，不要改动第 1 页。"></textarea></label>
+    <button onclick="createRewrite(this)">生成重写预览</button>
+    <div class="muted">预览不会改动当前正文，接受后才覆盖。真实生成约 1–3 分钟。</div>`;
+}
+
+function draftSection(draft, stage) {
+  if (!draft) return "";
+  const editable = stage === "DRAFT";
+  const validation = draft.validation || {};
+  const status = validation.overall_status;
+  const banner = status === "BLOCKED" ?
+      `<div class="banner blocked">有必须处理的问题，处理完成后才能进入定稿。</div>` :
+    status === "WARNING" ? `<div class="banner warning">存在提醒事项：请逐条处理或确认已知悉。</div>` :
+      `<div class="banner pass">校验通过，没有待处理事项。</div>`;
+  const issues = (draft.validation_issues || []).map(issue =>
+    issueRow(issue, editable)).join("") || `<div class="muted">无校验条目。</div>`;
+  const fact = draft.fact_review || {};
+  const factLabel = { NOT_REQUIRED: "本书无需事实核验", REQUIRED: "需要老师人工核验",
+                      VERIFIED_BY_USER: "已由老师核验" }[fact.status] || "—";
+  const pages = draft.pages.map(page => `<div class="pagebox">
+    <label>第 ${page.page_number} 页</label>
+    <textarea rows="2" data-page="${page.page_number}"
+      ${editable ? `onchange="saveDraft()"` : "readonly"}>${esc(page.text)}</textarea>
+  </div>`).join("");
+  return `<h2>④ 工作稿与校验
+      <span class="badge blue">${esc(draft.title || "")}</span></h2>
+    <div class="split">
+      <div class="card"><h3>分页正文${editable ? "（改完点击页面其他位置即自动保存并重新校验）" : ""}</h3>
+        ${pages}</div>
+      <div class="card">
+        ${banner}
+        <h3>校验结果</h3>${issues}
+        ${rewritePanel(editable)}
+        <h3>事实核验</h3>
+        <div class="muted">${factLabel}
+          ${fact.status === "VERIFIED_BY_USER" && fact.verification_note ?
+            " · 备注：" + esc(fact.verification_note) : ""}</div>
+        ${fact.status === "REQUIRED" && editable ? `<label>核验备注（必填）
+          <textarea id="fact-note" rows="2" placeholder="记录你核对了什么、结论是什么。"></textarea></label>
+          <button onclick="factVerify(this)">确认已核验</button>` : ""}
+        ${vocabPanel(draft, editable)}
+      </div>
+    </div>`;
+}
+
+async function saveDraft() {
+  const pages = [...document.querySelectorAll("textarea[data-page]")].map(node => ({
+    page_number: Number(node.dataset.page), text: node.value }));
+  try {
+    toast("保存并重新校验中…");
+    await postJSON("/api/draft/autosave", { draft_id: DATA.draft.draft_id, pages });
+    toast("已保存，校验结果已更新");
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+async function acknowledgeIssue(button) {
+  try {
+    await withBusy(button, "处理中…", () => postJSON("/api/issue/acknowledge",
+      { issue_id: button.dataset.issue }));
+    toast("已记录知悉");
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+async function factVerify(button) {
+  const note = (document.getElementById("fact-note").value || "").trim();
+  if (!note) return toast("请先填写核验备注");
+  try {
+    await withBusy(button, "提交中…", () => postJSON("/api/fact-review",
+      { draft_id: DATA.draft.draft_id, status: "VERIFIED_BY_USER", note }));
+    toast("已记录人工核验");
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+async function createRewrite(button) {
+  const scope = document.getElementById("rewrite-scope").value;
+  const instruction = document.getElementById("rewrite-instruction").value.trim();
+  if (!instruction) return toast("请先填写修改要求");
+  try {
+    await withBusy(button, "生成预览中…（约 1–3 分钟）", () => postJSON("/api/rewrite/preview", {
+      draft_id: DATA.draft.draft_id, scope, teacher_instruction: instruction,
+      page_number: scope === "PAGE" ?
+        Number(document.getElementById("rewrite-page").value) : null,
+    }));
+    toast("重写预览已生成，请对比后决定");
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+async function acceptRewrite(button) {
+  try {
+    await withBusy(button, "应用中…", () => postJSON("/api/rewrite/accept",
+      { rewrite_preview_id: DATA.rewrite_preview.rewrite_preview_id }));
+    toast("重写已应用到当前正文");
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+async function cancelRewrite(button) {
+  try {
+    await withBusy(button, "处理中…", () => postJSON("/api/rewrite/cancel",
+      { rewrite_preview_id: DATA.rewrite_preview.rewrite_preview_id }));
+    toast("已放弃预览，正文未改动");
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+function finalSection(gate, finalBook, stage) {
+  if (stage === "FINAL") {
+    return `<h2>⑤ 定稿</h2><div class="card">
+      <span class="badge green">已定稿</span>
+      <strong>${esc(finalBook ? finalBook.title : "")}</strong>
+      <div class="muted">定稿时间：${esc(finalBook ? finalBook.finalized_at : "")}</div>
+      <a href="/library.html">在历史绘本库中查看 →</a></div>`;
+  }
+  if (!gate) return "";
+  const failed = new Set((gate.blockers || []).map(item => item.code));
+  const checks = gate.checks || {};
+  const rows = [
+    ["校验与当前正文一致", checks.validation_current],
+    ["没有必须处理的问题", checks.blocker_count === 0],
+    ["提醒已全部处理或确认已知悉", checks.open_warning_count === 0],
+    ["本书词汇已确认", checks.vocabulary_confirmation_valid],
+    ["事实核验完成", ["NOT_REQUIRED", "VERIFIED_BY_USER"].includes(checks.fact_review_status)],
+    ["本 Unit 定稿名额充足", !failed.has("TOPIC_QUOTA_FULL") && !failed.has("BOOK_TYPE_QUOTA_FULL")],
+  ];
+  return `<h2>⑤ 定稿检查</h2><div class="card">
+    <ul class="checklist">${rows.map(([label, ok]) =>
+      `<li>${ok ? "✅" : "❌"} ${label}</li>`).join("")}</ul>
+    ${(gate.blockers || []).map(item => `<div class="issue BLOCKER">${esc(item.message)}</div>`).join("")}
+    <button onclick="finalizeBook(this)" ${gate.ready ? "" : "disabled"}>确认定稿</button>
+    <span class="muted">定稿后本书将进入历史绘本库并参与后续复现统计（需二次确认）。</span>
+  </div>`;
+}
+
+async function finalizeBook(button) {
+  if (!confirm("确认定稿？定稿后本书进入历史绘本库，教学词将参与后续绘本的复现统计。")) return;
+  try {
+    await withBusy(button, "定稿中…", () => postJSON("/api/final/finalize",
+      { project_id: DATA.project.project_id }));
+    toast("已定稿！本书已进入历史绘本库");
+    await reload();
+  } catch (error) { toast(error.message); }
+}
+
+let DATA = null;
+
+function render() {
+  const project = DATA.project;
+  document.getElementById("title").textContent = project.working_title || "绘本项目";
+  document.getElementById("topic-link").href = `/topic.html?id=${project.topic_id}`;
+  const proposal = DATA.proposal || {};
+  document.getElementById("main").innerHTML = `
+    ${stageBar(DATA.stage)}
+    <details class="card"><summary><strong>① 入选方案</strong>
+      <span class="badge gray">${BOOK_TYPE_LABELS[proposal.book_type] || ""}</span></summary>
+      <div class="muted">${esc(proposal.entry_point_cn || "")}</div>
+      <div>${esc(proposal.storyline || "")}</div></details>
+    ${planSection(DATA.plan, DATA.stage)}
+    ${candidateSection(DATA.candidates || [], DATA.stage)}
+    ${draftSection(DATA.draft, DATA.stage)}
+    ${finalSection(DATA.final_gate, DATA.final_book, DATA.stage)}`;
+}
+
+async function reload() {
+  DATA = await fetchJSON(`/api/project?id=${encodeURIComponent(qs("id"))}`);
+  planEdit = null;
+  render();
+}
+
+reload().catch(error => toast(error.message));
+</script>
+</body>
+</html>

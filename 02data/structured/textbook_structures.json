@@ -1,0 +1,142 @@
+[
+  {
+    "topic_id": "L2-T01",
+    "raw_structure": "Present continuous review",
+    "normalized_pattern": null,
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_structure": "Present simple for routines",
+    "normalized_pattern": null,
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_structure": "o'clock",
+    "normalized_pattern": null,
+    "sequence_no": 3,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_structure": "How often …? and adverbs of frequency",
+    "normalized_pattern": null,
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_structure": "Present simple with always, often, sometimes, never",
+    "normalized_pattern": null,
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_structure": "must / mustn't",
+    "normalized_pattern": null,
+    "sequence_no": 3,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_structure": "Present simple and present continuous",
+    "normalized_pattern": null,
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_structure": "Why …? / Because …",
+    "normalized_pattern": null,
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_structure": "Comparative adjectives with -er/-ier and better/worse",
+    "normalized_pattern": null,
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_structure": "Possessive pronouns",
+    "normalized_pattern": null,
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_structure": "Superlative adjectives",
+    "normalized_pattern": null,
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_structure": "Prepositions: above, below, near, opposite",
+    "normalized_pattern": null,
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_structure": "was / were",
+    "normalized_pattern": null,
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_structure": "There was / There were",
+    "normalized_pattern": null,
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T07",
+    "raw_structure": "Past simple: irregular verbs",
+    "normalized_pattern": null,
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T07",
+    "raw_structure": "Past simple: regular verbs",
+    "normalized_pattern": null,
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T08",
+    "raw_structure": "Past simple: more irregular verbs",
+    "normalized_pattern": null,
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T08",
+    "raw_structure": "have to / don't have to",
+    "normalized_pattern": null,
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_structure": "Comparative adjectives with more",
+    "normalized_pattern": null,
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_structure": "Superlative adjectives with most",
+    "normalized_pattern": null,
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  }
+]

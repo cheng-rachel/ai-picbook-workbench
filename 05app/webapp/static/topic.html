@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Power Up 绘编 · Unit 工作区</title>
+<link rel="stylesheet" href="/static/app.css">
+<style>
+.proposal-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  cursor: pointer; }
+.proposal-head input[type=checkbox] { width: 16px; height: 16px; margin: 0; flex: none;
+  accent-color: var(--accent); }
+.proposal-head strong { flex: 1; min-width: 200px; }
+.proposal-head .badge { flex: none; margin-left: 0; }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1 id="title">Unit 工作区</h1>
+  <nav><a href="/">工作台</a><a href="/library.html">历史绘本库</a><a href="/settings.html">模型配置</a></nav>
+</header>
+<main>
+  <h2>📘 教材依据</h2>
+  <div id="basis" class="card">加载中…</div>
+
+  <h2>✨ 生成故事方案</h2>
+  <div class="card">
+    <div class="grid cols-3">
+      <label>方案数量
+        <select id="gen-count"><option>6</option><option selected>8</option><option>10</option></select>
+      </label>
+      <label>绘本类型
+        <select id="gen-type">
+          <option value="ALL">不限类型</option>
+          <option value="TEXTBOOK_SYNC">教材衔接</option>
+          <option value="THEME_EXTENSION">主题拓展</option>
+          <option value="CROSS_CURRICULAR">跨学科提升</option>
+        </select>
+      </label>
+      <label>&nbsp;
+        <button id="gen-btn">生成故事方案</button>
+      </label>
+    </div>
+    <label>创作要求（可选）<textarea id="gen-instruction" rows="2"
+      placeholder="例如：故事由行动体现坚持，不要说教。"></textarea></label>
+    <div class="muted">生成约需 2–4 分钟，期间请不要关闭页面。</div>
+  </div>
+
+  <details class="card">
+    <summary><strong>✍️ 手动创建方案（不经过 AI）</strong>
+      <span class="muted">自己写故事方案，直接立项后进入正常流程</span></summary>
+    <div class="grid cols-2" style="margin-top:10px">
+      <label>方案标题（必填）<input id="man-title" placeholder="例如：The Broom Race"></label>
+      <label>绘本类型（必填）
+        <select id="man-type">
+          <option value="TEXTBOOK_SYNC">教材衔接</option>
+          <option value="THEME_EXTENSION">主题拓展</option>
+          <option value="CROSS_CURRICULAR">跨学科提升</option>
+        </select>
+      </label>
+    </div>
+    <label>故事梗概（必填）<textarea id="man-storyline" rows="3"
+      placeholder="用几句话写清楚故事的起因、经过和结尾。"></textarea></label>
+    <label>切入点说明（可选）<input id="man-entry"
+      placeholder="例如：从大扫除时的分工合作切入。"></label>
+    <div class="grid cols-3">
+      <label>预计核心词（可选）<input id="man-core" placeholder="逗号分隔，如 get up, farm"></label>
+      <label>预计核心句型（可选）<input id="man-patterns" placeholder="如 I get up at seven o'clock."></label>
+      <label>预计拓展词（可选）<input id="man-extension" placeholder="如 owl"></label>
+    </div>
+    <button id="man-btn">创建方案并立项</button>
+    <span class="muted">故事由你决定；核心词/句型留空时会由 AI 根据你的故事推荐（约 1 分钟），
+      推荐仅是建议，仍需你在词表计划里确认。</span>
+  </details>
+
+  <h2>故事方案筛选</h2>
+  <div id="batches">加载中…</div>
+
+  <h2>本 Unit 的绘本项目</h2>
+  <div id="projects" class="grid cols-2">加载中…</div>
+</main>
+<script src="/static/app.js"></script>
+<script>
+const topicId = qs("id");
+
+function renderBasis(data) {
+  const topic = data.topic;
+  document.getElementById("title").textContent =
+    `Unit ${topic.unit_number} · ${topic.unit_title || topic.theme}`;
+  document.getElementById("basis").innerHTML = `
+    <div><strong>${esc(topic.unit_title || "")}</strong>
+      <span class="badge blue">Power Up 2 · Unit ${esc(topic.unit_number)}</span></div>
+    <div class="muted">主题：${esc(topic.theme || "—")}</div>
+    <div class="muted">核心问题：${esc(topic.essential_question || "—")}</div>
+    <div class="muted">跨学科：${esc(topic.cross_curricular_text || "—")}</div>
+    <div class="muted">文学阅读：${esc(topic.literature_text || "—")}</div>
+    <h3>教材词汇</h3><div>${data.textbook_words.map(word =>
+      `<span class="badge blue">${esc(word)}</span>`).join(" ")}</div>
+    <h3>语法与句型依据</h3><div>${data.textbook_structures.map(structure =>
+      `<span class="badge blue">${esc(structure)}</span>`).join(" ")}</div>
+    ${data.textbook_examples.length ? `<h3>教材例句（节选）</h3>
+      <div class="muted">${data.textbook_examples.map(example =>
+        esc(example.example_text || example.text || "")).join("　·　")}</div>` : ""}`;
+}
+
+function renderBatches(data) {
+  const container = document.getElementById("batches");
+  if (!data.batches.length) {
+    container.innerHTML = `<div class="card muted">还没有生成过故事方案。</div>`;
+    return;
+  }
+  container.innerHTML = data.batches.map(batch => {
+    const finalized = !!batch.selection_finalized_at;
+    const cards = batch.proposals.map(proposal => {
+      const established = proposal.status === "SELECTED" && proposal.project_id;
+      const selectable = !established && !finalized && proposal.status === "GENERATED";
+      return `<div class="card">
+        <label class="proposal-head">
+          <input type="checkbox" data-batch="${esc(batch.proposal_batch_id)}"
+            value="${esc(proposal.proposal_id)}" ${selectable ? "" : "disabled"}>
+          <strong>${proposal.proposal_index}. ${esc(proposal.title || "（无标题）")}</strong>
+          <span class="badge gray">${BOOK_TYPE_LABELS[proposal.book_type] || esc(proposal.book_type)}</span>
+          ${established ? `<span class="badge green">已立项</span>` : ""}
+        </label>
+        <div class="muted">${esc(proposal.entry_point_cn || "")}</div>
+        <div>${esc(proposal.storyline || "")}</div>
+        <div class="muted">预测核心词：${(proposal.predicted_core_words || []).map(esc).join("、")}
+          ｜ 预测句型：${(proposal.predicted_core_patterns || []).map(esc).join("、")}</div>
+        ${established ? `<a href="/project.html?id=${esc(proposal.project_id)}">进入项目 →</a>` : ""}
+      </div>`;
+    }).join("");
+    return `<div class="card">
+      <div><strong>方案批次</strong>
+        <span class="badge ${finalized ? "gray" : "blue"}">${finalized ? "筛选已结束" : "筛选进行中"}</span>
+        <span class="muted">共 ${batch.original_proposal_count} 个 · 已立项 ${batch.selected_count}</span></div>
+      ${cards}
+      ${finalized ? "" : `
+        <button onclick="establish(this, '${esc(batch.proposal_batch_id)}')">立项所选方案</button>
+        <button class="secondary" onclick="finalizeBatch(this, '${esc(batch.proposal_batch_id)}')">结束本轮筛选</button>
+        <span class="muted">结束筛选后，未立项的方案将被清理。</span>`}
+    </div>`;
+  }).join("");
+}
+
+function renderProjects(data) {
+  const projects = document.getElementById("projects");
+  projects.innerHTML = data.projects.length ? data.projects.map(project => `
+    <a class="card cardlink" href="/project.html?id=${esc(project.project_id)}">
+      <strong>${esc(project.working_title || "（未命名项目）")}</strong>
+      <span class="badge ${PROJECT_STAGE_BADGES[project.stage] || "gray"}">
+        ${STAGE_LABELS[project.stage] || esc(project.stage)}</span>
+    </a>`).join("") : `<div class="card muted">还没有立项的绘本。</div>`;
+}
+
+async function reload() {
+  const data = await fetchJSON(`/api/topic?id=${encodeURIComponent(topicId)}`);
+  renderBasis(data);
+  renderBatches(data);
+  renderProjects(data);
+}
+
+async function establish(button, batchId) {
+  const checked = [...document.querySelectorAll(
+    `input[type=checkbox][data-batch="${batchId}"]:checked`)].map(node => node.value);
+  if (!checked.length) return toast("请先勾选要立项的方案");
+  await withBusy(button, "立项中…", async () => {
+    const result = await postJSON("/api/batch/establish",
+      { proposal_batch_id: batchId, proposal_ids: checked });
+    toast(`已建立 ${result.established_count} 个绘本项目`);
+    await reload();
+  }).catch(error => toast(error.message));
+}
+
+async function finalizeBatch(button, batchId) {
+  if (!confirm("确定结束本轮筛选吗？未立项的方案将被清理，之后不能再从本批次立项。")) return;
+  await withBusy(button, "处理中…", async () => {
+    const result = await postJSON("/api/batch/finalize", { proposal_batch_id: batchId });
+    toast(`筛选已结束：保留 ${result.selected_count} 个，清理 ${result.discarded_count} 个`);
+    await reload();
+  }).catch(error => toast(error.message));
+}
+
+function splitWords(value) {
+  return value.split(/[,，、\n]/).map(part => part.trim()).filter(Boolean);
+}
+
+document.getElementById("man-btn").addEventListener("click", async event => {
+  const title = document.getElementById("man-title").value.trim();
+  const storyline = document.getElementById("man-storyline").value.trim();
+  if (!title || !storyline) return toast("请先填写方案标题和故事梗概");
+  const teacherFilledWords = splitWords(document.getElementById("man-core").value);
+  const teacherFilledPatterns = splitWords(document.getElementById("man-patterns").value);
+  await withBusy(event.target, "立项中…", async () => {
+    const result = await postJSON("/api/proposals/manual", {
+      topic_id: topicId, title, storyline,
+      book_type: document.getElementById("man-type").value,
+      entry_point_cn: document.getElementById("man-entry").value.trim(),
+      predicted_core_words: teacherFilledWords,
+      predicted_core_patterns: teacherFilledPatterns,
+      predicted_extension_words: splitWords(document.getElementById("man-extension").value),
+    });
+    ["man-title", "man-storyline", "man-entry", "man-core", "man-patterns",
+     "man-extension"].forEach(id => { document.getElementById(id).value = ""; });
+    // 教师没自己填词时，自动请 AI 按故事推荐语言（失败不影响已立项的项目）。
+    // 推荐成功后立即生成建议词表（DRAFT Plan），教师进入项目就能看到并调整。
+    if (!teacherFilledWords.length && !teacherFilledPatterns.length) {
+      event.target.textContent = "AI 推荐语言中…（约 1 分钟）";
+      try {
+        await postJSON("/api/proposals/recommend-language",
+          { proposal_id: result.proposal_id });
+        await postJSON("/api/plan/prepare",
+          { project_id: result.project_id, page_count: 8 });
+        toast("方案已立项，AI 推荐的核心词与句型已生成建议词表，进入项目调整确认即可");
+      } catch (error) {
+        toast("方案已立项。语言推荐未完成：" + error.message +
+          " 可进入项目页重试或手动填写词表。");
+      }
+    } else {
+      toast("方案已立项，请在下方项目列表进入该项目");
+    }
+    await reload();
+  }).catch(error => toast(error.message));
+});
+
+document.getElementById("gen-btn").addEventListener("click", async event => {
+  await withBusy(event.target, "生成中…（约 2–4 分钟）", async () => {
+    const result = await postJSON("/api/proposals/generate", {
+      topic_id: topicId,
+      count: Number(document.getElementById("gen-count").value),
+      target_book_type: document.getElementById("gen-type").value,
+      creative_instruction: document.getElementById("gen-instruction").value,
+    });
+    toast(`已生成 ${result.proposals.length} 个故事方案`);
+    await reload();
+  }).catch(error => toast(error.message));
+});
+
+reload().catch(error => toast(error.message));
+</script>
+</body>
+</html>

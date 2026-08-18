@@ -1,0 +1,64 @@
+{
+  "status": "PASS_WITH_WARNINGS",
+  "metrics": {
+    "topics": 9,
+    "textbook_words": 160,
+    "textbook_structures": 20,
+    "textbook_examples": 0
+  },
+  "failures": [],
+  "warnings": [
+    {
+      "code": "TEXTBOOK_WORDS_PARTIAL",
+      "topic": "L2-T06",
+      "group": "Weather",
+      "message": "non-exhaustive source list: cold 等天气词"
+    },
+    {
+      "code": "TEXTBOOK_WORDS_PARTIAL",
+      "topic": "L2-T06",
+      "group": "Clothes",
+      "message": "non-exhaustive source list: sunglasses 等"
+    },
+    {
+      "code": "TEXTBOOK_WORDS_PARTIAL",
+      "topic": "L2-T07",
+      "group": "Food & tableware",
+      "message": "non-exhaustive source list (such as): Food & tableware: food-related vocabulary such as pasta, soup, vegetables，以及餐具词汇"
+    },
+    {
+      "code": "TEXTBOOK_WORDS_PARTIAL",
+      "topic": "L2-T07",
+      "group": "Food & tableware",
+      "message": "non-english fragment kept as note: 以及餐具词汇"
+    },
+    {
+      "code": "TEXTBOOK_WORDS_PARTIAL",
+      "topic": "L2-T07",
+      "group": "Actions in the kitchen",
+      "message": "non-exhaustive source list: cook 等"
+    },
+    {
+      "code": "TEXTBOOK_WORDS_PARTIAL",
+      "topic": "L2-T08",
+      "group": "A day trip",
+      "message": "non-exhaustive source list: ride 等"
+    },
+    {
+      "code": "TEXTBOOK_WORDS_PARTIAL",
+      "topic": "L2-T08",
+      "group": "Places in town",
+      "message": "non-exhaustive source list: road 等"
+    },
+    {
+      "code": "SOURCE_CONFLICT",
+      "conflict_id": "level2-core-word-frequency",
+      "resolution": "单篇核心词复现按3-5次为建议目标，不是Final硬约束"
+    },
+    {
+      "code": "SOURCE_CONFLICT",
+      "conflict_id": "level2-recurrence",
+      "resolution": "3-5次为建议目标，最低≥3册；均不是Final硬约束"
+    }
+  ]
+}

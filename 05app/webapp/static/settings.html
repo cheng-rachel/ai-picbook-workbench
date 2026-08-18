@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Power Up 绘编 · 模型配置</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="top">
+  <h1>模型 API 配置</h1>
+  <nav><a href="/">工作台</a><a href="/library.html">历史绘本库</a>
+    <a href="/settings.html">模型配置</a></nav>
+</header>
+<main>
+  <div id="status" class="card muted">加载中…</div>
+  <div class="card">
+    <div class="muted">配置你自己的模型服务后，AI 生成功能（故事方案 / 绘本正文 / 重写 /
+      语言推荐）即可使用。配置保存在本机项目目录的 <code>.env.local</code> 文件中，
+      下次启动自动读取；请勿分享该文件。未配置时仍可正常浏览和编辑已有内容。</div>
+    <h3>必填</h3>
+    <div class="grid cols-2">
+      <label>接口协议类型（MODEL_PROVIDER）
+        <input id="cfg-provider" placeholder="如 openai_compatible"></label>
+      <label>模型服务接口地址（MODEL_API_URL）
+        <input id="cfg-url" placeholder="如 https://…/api/v3/chat/completions"></label>
+      <label>模型服务密钥（MODEL_API_KEY）
+        <input id="cfg-key" type="password" autocomplete="off"
+          placeholder="首次配置必填"></label>
+      <label>默认模型（DEFAULT_MODEL）
+        <input id="cfg-default" placeholder="如 my-model-name"></label>
+    </div>
+    <h3>选填（留空则使用默认模型）</h3>
+    <div class="grid cols-3">
+      <label>故事方案生成模型（PROPOSAL_MODEL）
+        <input id="cfg-proposal" placeholder="选填。如留空，将使用默认模型。"></label>
+      <label>绘本正文生成模型（FULL_TEXT_MODEL）
+        <input id="cfg-fulltext" placeholder="选填。如留空，将使用默认模型。"></label>
+      <label>局部/全文重写模型（REWRITE_MODEL）
+        <input id="cfg-rewrite" placeholder="选填。如留空，将使用默认模型。"></label>
+    </div>
+    <div class="muted">三个任务模型共享同一套接口地址与密钥；当前版本只支持一个模型服务
+      Provider。接口地址请填服务商文档中的 chat/completions 完整地址；
+      如只填到服务根路径（如 …/v1 或 …/api/v3），系统会自动补全 /chat/completions。</div>
+    <button id="cfg-save">保存配置</button>
+    <span class="muted">保存后立即生效，无需重启服务。</span>
+  </div>
+</main>
+<script src="/static/app.js"></script>
+<script>
+async function loadConfig() {
+  const config = await fetchJSON("/api/model-config");
+  const status = document.getElementById("status");
+  if (config.configured) {
+    status.innerHTML = `<span class="badge green">已配置</span>
+      当前密钥：${esc(config.api_key_hint || "已设置")}（不显示完整内容；留空保存表示沿用当前密钥）`;
+  } else {
+    status.innerHTML = `<span class="badge amber">未配置</span>
+      尚未检测到模型服务配置。填写并保存后，AI 生成功能即可使用。`;
+  }
+  if (config.env_overrides.length) {
+    status.innerHTML += `<div class="muted">注意：${config.env_overrides.join("、")}
+      当前由启动环境变量提供，会优先于本页面保存的值。</div>`;
+  }
+  document.getElementById("cfg-provider").value = config.model_provider || "openai_compatible";
+  document.getElementById("cfg-url").value = config.model_api_url || "";
+  document.getElementById("cfg-default").value = config.default_model || "";
+  document.getElementById("cfg-proposal").value = config.proposal_model || "";
+  document.getElementById("cfg-fulltext").value = config.full_text_model || "";
+  document.getElementById("cfg-rewrite").value = config.rewrite_model || "";
+  document.getElementById("cfg-key").placeholder =
+    config.api_key_set ? "已设置。留空表示沿用当前密钥" : "首次配置必填";
+}
+
+document.getElementById("cfg-save").addEventListener("click", async event => {
+  await withBusy(event.target, "保存中…", async () => {
+    await postJSON("/api/model-config", {
+      model_provider: document.getElementById("cfg-provider").value.trim(),
+      model_api_url: document.getElementById("cfg-url").value.trim(),
+      model_api_key: document.getElementById("cfg-key").value.trim(),
+      default_model: document.getElementById("cfg-default").value.trim(),
+      proposal_model: document.getElementById("cfg-proposal").value.trim(),
+      full_text_model: document.getElementById("cfg-fulltext").value.trim(),
+      rewrite_model: document.getElementById("cfg-rewrite").value.trim(),
+    });
+    document.getElementById("cfg-key").value = "";
+    toast("配置已保存，AI 生成功能即刻可用");
+    await loadConfig();
+  }).catch(error => toast(error.message));
+});
+
+loadConfig().catch(error => toast(error.message));
+</script>
+</body>
+</html>

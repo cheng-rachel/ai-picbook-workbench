@@ -1,0 +1,1282 @@
+[
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "countryside",
+    "normalized_entry": "countryside",
+    "entry_type": "word",
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "farm",
+    "normalized_entry": "farm",
+    "entry_type": "word",
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "field",
+    "normalized_entry": "field",
+    "entry_type": "word",
+    "sequence_no": 3,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "forest",
+    "normalized_entry": "forest",
+    "entry_type": "word",
+    "sequence_no": 4,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "grass",
+    "normalized_entry": "grass",
+    "entry_type": "word",
+    "sequence_no": 5,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "ground",
+    "normalized_entry": "ground",
+    "entry_type": "word",
+    "sequence_no": 6,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "lake",
+    "normalized_entry": "lake",
+    "entry_type": "word",
+    "sequence_no": 7,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "leaf/leaves",
+    "normalized_entry": "leaf/leaves",
+    "entry_type": "word",
+    "sequence_no": 8,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "mountain",
+    "normalized_entry": "mountain",
+    "entry_type": "word",
+    "sequence_no": 9,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "river",
+    "normalized_entry": "river",
+    "entry_type": "word",
+    "sequence_no": 10,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "rock",
+    "normalized_entry": "rock",
+    "entry_type": "word",
+    "sequence_no": 11,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "tractor",
+    "normalized_entry": "tractor",
+    "entry_type": "word",
+    "sequence_no": 12,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "wake up",
+    "normalized_entry": "wake up",
+    "entry_type": "phrase",
+    "sequence_no": 13,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "get up",
+    "normalized_entry": "get up",
+    "entry_type": "phrase",
+    "sequence_no": 14,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "get dressed",
+    "normalized_entry": "get dressed",
+    "entry_type": "phrase",
+    "sequence_no": 15,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "have breakfast",
+    "normalized_entry": "have breakfast",
+    "entry_type": "phrase",
+    "sequence_no": 16,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "have a shower",
+    "normalized_entry": "have a shower",
+    "entry_type": "phrase",
+    "sequence_no": 17,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "clean/brush your teeth",
+    "normalized_entry": "clean/brush your teeth",
+    "entry_type": "phrase",
+    "sequence_no": 18,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "toothbrush",
+    "normalized_entry": "toothbrush",
+    "entry_type": "word",
+    "sequence_no": 19,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "toothpaste",
+    "normalized_entry": "toothpaste",
+    "entry_type": "word",
+    "sequence_no": 20,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T01",
+    "raw_entry": "towel",
+    "normalized_entry": "towel",
+    "entry_type": "word",
+    "sequence_no": 21,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_entry": "Monday",
+    "normalized_entry": "monday",
+    "entry_type": "word",
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_entry": "Tuesday",
+    "normalized_entry": "tuesday",
+    "entry_type": "word",
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_entry": "Wednesday",
+    "normalized_entry": "wednesday",
+    "entry_type": "word",
+    "sequence_no": 3,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_entry": "Thursday",
+    "normalized_entry": "thursday",
+    "entry_type": "word",
+    "sequence_no": 4,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_entry": "Friday",
+    "normalized_entry": "friday",
+    "entry_type": "word",
+    "sequence_no": 5,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_entry": "Saturday",
+    "normalized_entry": "saturday",
+    "entry_type": "word",
+    "sequence_no": 6,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_entry": "Sunday",
+    "normalized_entry": "sunday",
+    "entry_type": "word",
+    "sequence_no": 7,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_entry": "listen to music",
+    "normalized_entry": "listen to music",
+    "entry_type": "phrase",
+    "sequence_no": 8,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_entry": "write an email",
+    "normalized_entry": "write an email",
+    "entry_type": "phrase",
+    "sequence_no": 9,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_entry": "go skating",
+    "normalized_entry": "go skating",
+    "entry_type": "phrase",
+    "sequence_no": 10,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_entry": "read a comic/comics",
+    "normalized_entry": "read a comic/comics",
+    "entry_type": "phrase",
+    "sequence_no": 11,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_entry": "go shopping",
+    "normalized_entry": "go shopping",
+    "entry_type": "phrase",
+    "sequence_no": 12,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_entry": "watch films",
+    "normalized_entry": "watch films",
+    "entry_type": "phrase",
+    "sequence_no": 13,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_entry": "listen to a CD",
+    "normalized_entry": "listen to a cd",
+    "entry_type": "phrase",
+    "sequence_no": 14,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T02",
+    "raw_entry": "watch a DVD",
+    "normalized_entry": "watch a dvd",
+    "entry_type": "phrase",
+    "sequence_no": 15,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "clown",
+    "normalized_entry": "clown",
+    "entry_type": "word",
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "cook",
+    "normalized_entry": "cook",
+    "entry_type": "word",
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "costume",
+    "normalized_entry": "costume",
+    "entry_type": "word",
+    "sequence_no": 3,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "dentist",
+    "normalized_entry": "dentist",
+    "entry_type": "word",
+    "sequence_no": 4,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "doctor",
+    "normalized_entry": "doctor",
+    "entry_type": "word",
+    "sequence_no": 5,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "farmer",
+    "normalized_entry": "farmer",
+    "entry_type": "word",
+    "sequence_no": 6,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "film star",
+    "normalized_entry": "film star",
+    "entry_type": "phrase",
+    "sequence_no": 7,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "invite",
+    "normalized_entry": "invite",
+    "entry_type": "word",
+    "sequence_no": 8,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "nurse",
+    "normalized_entry": "nurse",
+    "entry_type": "word",
+    "sequence_no": 9,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "party",
+    "normalized_entry": "party",
+    "entry_type": "word",
+    "sequence_no": 10,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "pirate",
+    "normalized_entry": "pirate",
+    "entry_type": "word",
+    "sequence_no": 11,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "pop star",
+    "normalized_entry": "pop star",
+    "entry_type": "phrase",
+    "sequence_no": 12,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "present",
+    "normalized_entry": "present",
+    "entry_type": "word",
+    "sequence_no": 13,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "treasure",
+    "normalized_entry": "treasure",
+    "entry_type": "word",
+    "sequence_no": 14,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "curly",
+    "normalized_entry": "curly",
+    "entry_type": "word",
+    "sequence_no": 15,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "straight",
+    "normalized_entry": "straight",
+    "entry_type": "word",
+    "sequence_no": 16,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "blonde",
+    "normalized_entry": "blonde",
+    "entry_type": "word",
+    "sequence_no": 17,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "fair",
+    "normalized_entry": "fair",
+    "entry_type": "word",
+    "sequence_no": 18,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "fat",
+    "normalized_entry": "fat",
+    "entry_type": "word",
+    "sequence_no": 19,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "thin",
+    "normalized_entry": "thin",
+    "entry_type": "word",
+    "sequence_no": 20,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "tall",
+    "normalized_entry": "tall",
+    "entry_type": "word",
+    "sequence_no": 21,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "short",
+    "normalized_entry": "short",
+    "entry_type": "word",
+    "sequence_no": 22,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "long",
+    "normalized_entry": "long",
+    "entry_type": "word",
+    "sequence_no": 23,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "ugly",
+    "normalized_entry": "ugly",
+    "entry_type": "word",
+    "sequence_no": 24,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "beard",
+    "normalized_entry": "beard",
+    "entry_type": "word",
+    "sequence_no": 25,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T03",
+    "raw_entry": "moustache",
+    "normalized_entry": "moustache",
+    "entry_type": "word",
+    "sequence_no": 26,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "aunt",
+    "normalized_entry": "aunt",
+    "entry_type": "word",
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "uncle",
+    "normalized_entry": "uncle",
+    "entry_type": "word",
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "cousin",
+    "normalized_entry": "cousin",
+    "entry_type": "word",
+    "sequence_no": 3,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "parents",
+    "normalized_entry": "parents",
+    "entry_type": "word",
+    "sequence_no": 4,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "grandparents",
+    "normalized_entry": "grandparents",
+    "entry_type": "word",
+    "sequence_no": 5,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "son",
+    "normalized_entry": "son",
+    "entry_type": "word",
+    "sequence_no": 6,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "daughter",
+    "normalized_entry": "daughter",
+    "entry_type": "word",
+    "sequence_no": 7,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "children",
+    "normalized_entry": "children",
+    "entry_type": "word",
+    "sequence_no": 8,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "grandson",
+    "normalized_entry": "grandson",
+    "entry_type": "word",
+    "sequence_no": 9,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "granddaughter",
+    "normalized_entry": "granddaughter",
+    "entry_type": "word",
+    "sequence_no": 10,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "balcony",
+    "normalized_entry": "balcony",
+    "entry_type": "word",
+    "sequence_no": 11,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "basement",
+    "normalized_entry": "basement",
+    "entry_type": "word",
+    "sequence_no": 12,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "downstairs",
+    "normalized_entry": "downstairs",
+    "entry_type": "word",
+    "sequence_no": 13,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "ground floor",
+    "normalized_entry": "ground floor",
+    "entry_type": "phrase",
+    "sequence_no": 14,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "first floor",
+    "normalized_entry": "first floor",
+    "entry_type": "phrase",
+    "sequence_no": 15,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "second floor",
+    "normalized_entry": "second floor",
+    "entry_type": "phrase",
+    "sequence_no": 16,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "inside",
+    "normalized_entry": "inside",
+    "entry_type": "word",
+    "sequence_no": 17,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "lift/elevator",
+    "normalized_entry": "lift/elevator",
+    "entry_type": "word",
+    "sequence_no": 18,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "outside",
+    "normalized_entry": "outside",
+    "entry_type": "word",
+    "sequence_no": 19,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "roof",
+    "normalized_entry": "roof",
+    "entry_type": "word",
+    "sequence_no": 20,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "stairs",
+    "normalized_entry": "stairs",
+    "entry_type": "word",
+    "sequence_no": 21,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T04",
+    "raw_entry": "upstairs",
+    "normalized_entry": "upstairs",
+    "entry_type": "word",
+    "sequence_no": 22,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "bat",
+    "normalized_entry": "bat",
+    "entry_type": "word",
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "bear",
+    "normalized_entry": "bear",
+    "entry_type": "word",
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "cage",
+    "normalized_entry": "cage",
+    "entry_type": "word",
+    "sequence_no": 3,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "dolphin",
+    "normalized_entry": "dolphin",
+    "entry_type": "word",
+    "sequence_no": 4,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "kangaroo",
+    "normalized_entry": "kangaroo",
+    "entry_type": "word",
+    "sequence_no": 5,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "lion",
+    "normalized_entry": "lion",
+    "entry_type": "word",
+    "sequence_no": 6,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "panda",
+    "normalized_entry": "panda",
+    "entry_type": "word",
+    "sequence_no": 7,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "parrot",
+    "normalized_entry": "parrot",
+    "entry_type": "word",
+    "sequence_no": 8,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "penguin",
+    "normalized_entry": "penguin",
+    "entry_type": "word",
+    "sequence_no": 9,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "rabbit",
+    "normalized_entry": "rabbit",
+    "entry_type": "word",
+    "sequence_no": 10,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "whale",
+    "normalized_entry": "whale",
+    "entry_type": "word",
+    "sequence_no": 11,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "climb",
+    "normalized_entry": "climb",
+    "entry_type": "word",
+    "sequence_no": 12,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "fall",
+    "normalized_entry": "fall",
+    "entry_type": "word",
+    "sequence_no": 13,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "fly",
+    "normalized_entry": "fly",
+    "entry_type": "word",
+    "sequence_no": 14,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "hide",
+    "normalized_entry": "hide",
+    "entry_type": "word",
+    "sequence_no": 15,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "jump",
+    "normalized_entry": "jump",
+    "entry_type": "word",
+    "sequence_no": 16,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "lose",
+    "normalized_entry": "lose",
+    "entry_type": "word",
+    "sequence_no": 17,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "move",
+    "normalized_entry": "move",
+    "entry_type": "word",
+    "sequence_no": 18,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "run",
+    "normalized_entry": "run",
+    "entry_type": "word",
+    "sequence_no": 19,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T05",
+    "raw_entry": "walk",
+    "normalized_entry": "walk",
+    "entry_type": "word",
+    "sequence_no": 20,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "cloud",
+    "normalized_entry": "cloud",
+    "entry_type": "word",
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "rain",
+    "normalized_entry": "rain",
+    "entry_type": "word",
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "rainbow",
+    "normalized_entry": "rainbow",
+    "entry_type": "word",
+    "sequence_no": 3,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "snow",
+    "normalized_entry": "snow",
+    "entry_type": "word",
+    "sequence_no": 4,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "sunny",
+    "normalized_entry": "sunny",
+    "entry_type": "word",
+    "sequence_no": 5,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "wind",
+    "normalized_entry": "wind",
+    "entry_type": "word",
+    "sequence_no": 6,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "hot",
+    "normalized_entry": "hot",
+    "entry_type": "word",
+    "sequence_no": 7,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "cold",
+    "normalized_entry": "cold",
+    "entry_type": "word",
+    "sequence_no": 8,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "T-shirt",
+    "normalized_entry": "t-shirt",
+    "entry_type": "word",
+    "sequence_no": 9,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "shorts",
+    "normalized_entry": "shorts",
+    "entry_type": "word",
+    "sequence_no": 10,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "scarf",
+    "normalized_entry": "scarf",
+    "entry_type": "word",
+    "sequence_no": 11,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "trainers",
+    "normalized_entry": "trainers",
+    "entry_type": "word",
+    "sequence_no": 12,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "sweater",
+    "normalized_entry": "sweater",
+    "entry_type": "word",
+    "sequence_no": 13,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "shoes",
+    "normalized_entry": "shoes",
+    "entry_type": "word",
+    "sequence_no": 14,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "gloves",
+    "normalized_entry": "gloves",
+    "entry_type": "word",
+    "sequence_no": 15,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "coat",
+    "normalized_entry": "coat",
+    "entry_type": "word",
+    "sequence_no": 16,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "cap",
+    "normalized_entry": "cap",
+    "entry_type": "word",
+    "sequence_no": 17,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T06",
+    "raw_entry": "sunglasses",
+    "normalized_entry": "sunglasses",
+    "entry_type": "word",
+    "sequence_no": 18,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T07",
+    "raw_entry": "pasta",
+    "normalized_entry": "pasta",
+    "entry_type": "word",
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T07",
+    "raw_entry": "soup",
+    "normalized_entry": "soup",
+    "entry_type": "word",
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T07",
+    "raw_entry": "vegetables",
+    "normalized_entry": "vegetables",
+    "entry_type": "word",
+    "sequence_no": 3,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T07",
+    "raw_entry": "boil",
+    "normalized_entry": "boil",
+    "entry_type": "word",
+    "sequence_no": 4,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T07",
+    "raw_entry": "fry",
+    "normalized_entry": "fry",
+    "entry_type": "word",
+    "sequence_no": 5,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T07",
+    "raw_entry": "cut",
+    "normalized_entry": "cut",
+    "entry_type": "word",
+    "sequence_no": 6,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T07",
+    "raw_entry": "wash",
+    "normalized_entry": "wash",
+    "entry_type": "word",
+    "sequence_no": 7,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T07",
+    "raw_entry": "carry",
+    "normalized_entry": "carry",
+    "entry_type": "word",
+    "sequence_no": 8,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T07",
+    "raw_entry": "make",
+    "normalized_entry": "make",
+    "entry_type": "word",
+    "sequence_no": 9,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T07",
+    "raw_entry": "cook",
+    "normalized_entry": "cook",
+    "entry_type": "word",
+    "sequence_no": 10,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T08",
+    "raw_entry": "trip",
+    "normalized_entry": "trip",
+    "entry_type": "word",
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T08",
+    "raw_entry": "ticket",
+    "normalized_entry": "ticket",
+    "entry_type": "word",
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T08",
+    "raw_entry": "map",
+    "normalized_entry": "map",
+    "entry_type": "word",
+    "sequence_no": 3,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T08",
+    "raw_entry": "ride",
+    "normalized_entry": "ride",
+    "entry_type": "word",
+    "sequence_no": 4,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T08",
+    "raw_entry": "city centre",
+    "normalized_entry": "city centre",
+    "entry_type": "phrase",
+    "sequence_no": 5,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T08",
+    "raw_entry": "funfair",
+    "normalized_entry": "funfair",
+    "entry_type": "word",
+    "sequence_no": 6,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T08",
+    "raw_entry": "car park",
+    "normalized_entry": "car park",
+    "entry_type": "phrase",
+    "sequence_no": 7,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T08",
+    "raw_entry": "train station",
+    "normalized_entry": "train station",
+    "entry_type": "phrase",
+    "sequence_no": 8,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T08",
+    "raw_entry": "bus station",
+    "normalized_entry": "bus station",
+    "entry_type": "phrase",
+    "sequence_no": 9,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T08",
+    "raw_entry": "road",
+    "normalized_entry": "road",
+    "entry_type": "word",
+    "sequence_no": 10,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "afraid",
+    "normalized_entry": "afraid",
+    "entry_type": "word",
+    "sequence_no": 1,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "frightened",
+    "normalized_entry": "frightened",
+    "entry_type": "word",
+    "sequence_no": 2,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "exciting",
+    "normalized_entry": "exciting",
+    "entry_type": "word",
+    "sequence_no": 3,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "boring",
+    "normalized_entry": "boring",
+    "entry_type": "word",
+    "sequence_no": 4,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "dangerous",
+    "normalized_entry": "dangerous",
+    "entry_type": "word",
+    "sequence_no": 5,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "difficult",
+    "normalized_entry": "difficult",
+    "entry_type": "word",
+    "sequence_no": 6,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "easy",
+    "normalized_entry": "easy",
+    "entry_type": "word",
+    "sequence_no": 7,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "hungry",
+    "normalized_entry": "hungry",
+    "entry_type": "word",
+    "sequence_no": 8,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "thirsty",
+    "normalized_entry": "thirsty",
+    "entry_type": "word",
+    "sequence_no": 9,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "tired",
+    "normalized_entry": "tired",
+    "entry_type": "word",
+    "sequence_no": 10,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "surprised",
+    "normalized_entry": "surprised",
+    "entry_type": "word",
+    "sequence_no": 11,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "adventure",
+    "normalized_entry": "adventure",
+    "entry_type": "word",
+    "sequence_no": 12,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "busy",
+    "normalized_entry": "busy",
+    "entry_type": "word",
+    "sequence_no": 13,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "email",
+    "normalized_entry": "email",
+    "entry_type": "word",
+    "sequence_no": 14,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "round",
+    "normalized_entry": "round",
+    "entry_type": "word",
+    "sequence_no": 15,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "text",
+    "normalized_entry": "text",
+    "entry_type": "word",
+    "sequence_no": 16,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "travel",
+    "normalized_entry": "travel",
+    "entry_type": "word",
+    "sequence_no": 17,
+    "source_document_id": "topics"
+  },
+  {
+    "topic_id": "L2-T09",
+    "raw_entry": "world",
+    "normalized_entry": "world",
+    "entry_type": "word",
+    "sequence_no": 18,
+    "source_document_id": "topics"
+  }
+]

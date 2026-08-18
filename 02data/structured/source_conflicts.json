@@ -1,0 +1,34 @@
+[
+  {
+    "conflict_id": "level2-core-word-frequency",
+    "rule_key": "level2.core_word_frequency",
+    "variants": [
+      {
+        "source_document_id": "language",
+        "raw_value": "3-5次（分级词汇与篇幅标准）"
+      },
+      {
+        "source_document_id": "language",
+        "raw_value": "大于等于3（核心词复现规则正文）"
+      }
+    ],
+    "resolution_status": "resolved",
+    "resolution_note": "单篇核心词复现按3-5次为建议目标，不是Final硬约束"
+  },
+  {
+    "conflict_id": "level2-recurrence",
+    "rule_key": "level2.cross_book_recurrence",
+    "variants": [
+      {
+        "source_document_id": "language",
+        "raw_value": "同级跨册复现3+册"
+      },
+      {
+        "source_document_id": "product",
+        "raw_value": "跨书复现3-5次为建议目标"
+      }
+    ],
+    "resolution_status": "resolved",
+    "resolution_note": "3-5次为建议目标，最低≥3册；均不是Final硬约束"
+  }
+]

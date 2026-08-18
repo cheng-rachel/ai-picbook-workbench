@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Power Up 绘编 · 工作台</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="top">
+  <h1>Power Up 绘编 · 教师工作台</h1>
+  <nav><a href="/">工作台</a><a href="/library.html">历史绘本库</a>
+    <a href="/settings.html">模型配置</a></nav>
+</header>
+<main>
+  <div id="config-banner"></div>
+  <div id="stats" class="card muted">加载中…</div>
+  <h2>选择 Unit 开始（教材：Cambridge Power Up 2）</h2>
+  <div id="topics" class="grid cols-2">加载中…</div>
+</main>
+<script src="/static/app.js"></script>
+<script>
+(async () => {
+  const config = await fetchJSON("/api/model-config");
+  if (!config.configured) {
+    document.getElementById("config-banner").innerHTML = `<div class="banner warning">
+      还没有配置模型服务：你可以正常浏览和编辑已有内容；使用 AI 生成功能前，
+      请先前往 <a href="/settings.html">模型配置</a> 填写你自己的 API 服务信息。</div>`;
+  }
+  const data = await fetchJSON("/api/topics");
+  const stats = data.system_vocabulary;
+  document.getElementById("stats").innerHTML =
+    `体系词汇沉淀（只统计 Final 绘本）：核心词 ${stats.core_lemmas} · ` +
+    `拓展词 ${stats.extension_lemmas} · 复现词 ${stats.review_lemmas}` +
+    `<span class="badge gray">${esc(stats.note)}</span>`;
+  document.getElementById("topics").innerHTML = data.topics.map(topic => {
+    const progress = topic.final_progress;
+    const types = progress.by_book_type;
+    return `<a class="card cardlink" href="/topic.html?id=${esc(topic.topic_id)}">
+      <strong>Unit ${topic.unit_number} · ${esc(topic.unit_title || topic.theme)}</strong>
+      <span class="badge ${progress.total_current_finals > 0 ? "green" : "gray"}">
+        Final ${progress.total_current_finals}/7</span>
+      <div class="muted">${esc(topic.theme)} · ${esc(topic.essential_question || "")}</div>
+      <div class="muted">教材衔接 ${types.TEXTBOOK_SYNC}/2 · 主题拓展 ${types.THEME_EXTENSION}/3
+        · 跨学科提升 ${types.CROSS_CURRICULAR}/2</div>
+    </a>`;
+  }).join("");
+})().catch(error => toast(error.message));
+</script>
+</body>
+</html>
