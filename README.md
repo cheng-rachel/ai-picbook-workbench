@@ -56,6 +56,8 @@ Level 2
 Demo 的重点不是复现教材内容，而是展示：
 
 > **如何将 Curriculum Constraints 与 Grading Constraints 转化为 AI 可执行、程序可检查、教师可干预的内容生产 Workflow。**
+![Language Plan](00assets/02提案.png)
+
 
 ---
 
@@ -92,6 +94,9 @@ Historical Recurrence
 AI 根据教材依据、分级要求和内容类型生成多个差异化故事方案。
 
 教师选择具有教学价值和故事潜力的方案，再进入正式编写。
+
+教师也可手动输入已想好的方案内容，AI针对该方案生成推荐词、句，教师确认后，进行正式编写。
+![Language Plan](00assets/03提案.png)
 
 ### ③ Language Plan
 
@@ -142,6 +147,7 @@ Validation 不直接替代教师决策。
 只有满足必要规则并完成教师确认后，作品才能进入 Final。
 
 Final 不只是“保存最终文本”，还会将本篇的教学词汇和语言使用情况写入历史数据。
+![Language Plan](00assets/04历史库.png)
 
 ### ⑧ Historical Recurrence
 
@@ -158,6 +164,7 @@ Book B Generation
 ```
 
 单篇内容生产由此形成跨书的语言学习连续性。
+![Language Plan](00assets/05历史库.png)
 
 ---
 
